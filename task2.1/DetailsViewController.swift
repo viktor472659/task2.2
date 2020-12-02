@@ -46,7 +46,7 @@ class DetailsViewController: UIViewController {
         let component = CircleProgressBar(frame: CGRect(x: (self.circleView.frame.width - 100) / 2, y: (self.circleView.frame.height - 100) / 2, width: 100, height: 100))
 
         component.progressLvl = model.rating
-        component.animation = true
+        component.animate(toValue: CGFloat( model.rating) / 100)
 
         self.votedLabel.text = "Проголосували: \(model.voteCount)"
         self.descLabel.text = model.overview

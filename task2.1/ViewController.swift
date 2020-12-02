@@ -20,7 +20,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var labelText: UILabel!
     
     @IBAction func buttonField(_ sender: UIButton) {
-        print(inputField.text ?? "")
         
         if(inputField.text==""){return}
         

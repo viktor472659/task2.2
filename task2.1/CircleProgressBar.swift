@@ -10,12 +10,7 @@ import UIKit
 
 class CircleProgressBar: UIView {
 
-    
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-//    override func draw(_ rect: CGRect) {
-//        // Drawing code
-//    }
+
     private var backgroundLayout = CAShapeLayer()
     private var foregroundLayout = CAShapeLayer()
     private var textLayout = CATextLayer()
@@ -52,18 +47,9 @@ class CircleProgressBar: UIView {
     var backgroundColor1: UIColor = UIColor.gray
 
     
-    var animation: Bool  = false{
-          didSet {
-            #warning("You should reuse initially created layers, instead of creating new ones")
-            //i don`t know how do this task for now
-              createCircle()
-
-          }
-    }
     
     public func createCircle () {
-        #warning("To much hard coded values")
-        let circle = UIBezierPath(arcCenter: CGPoint(x: 50, y: 50), radius: 50, startAngle: CGFloat(-0.5 * .pi), endAngle: CGFloat(1.5 * .pi), clockwise: true)
+        let circle = UIBezierPath(arcCenter: CGPoint(x: frame.size.width / 2.0, y: frame.size.height / 2.0), radius: 50, startAngle: -.pi / 2, endAngle: 3 * .pi / 2, clockwise: true)
         
         backgroundLayout.path = circle.cgPath
         
@@ -90,19 +76,17 @@ class CircleProgressBar: UIView {
         
         layer.addSublayer(textLayout)
         
-        if(animation){
-            animate(toValue:CGFloat(progressLvl)/100)
-        }
-        
     }
         
     func animate(toValue: CGFloat) {
-        let strokeAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        strokeAnimation.fromValue = 0.0
-        strokeAnimation.toValue = toValue
-        strokeAnimation.duration = 5
-        strokeAnimation.timingFunction=CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
-        foregroundLayout.add(strokeAnimation, forKey: #keyPath(CALayer.position))
+        
+       let circularProgressAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        circularProgressAnimation.duration = 5
+        circularProgressAnimation.fromValue = 0.0
+        circularProgressAnimation.toValue = toValue
+        circularProgressAnimation.fillMode = .forwards
+        circularProgressAnimation.isRemovedOnCompletion = false
+        foregroundLayout.add(circularProgressAnimation, forKey: "progressAnim")
     }
     
 }
